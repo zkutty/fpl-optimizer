@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+
+{% block title %}Optimal Squad - FPL Optimizer{% endblock %}
+
+{% block content %}
+<div x-data="optimalSquadData()" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Header -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-users mr-3"></i>Optimal Squad Builder
+        </h1>
+        <p class="text-gray-600 mb-6">Generate the best possible FPL squad using advanced optimization algorithms</p>
+        
+        <!-- Controls -->
+        <div class="flex flex-wrap items-end gap-4">
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Budget (£m)
+                </label>
+                <input 
+                    type="number" 
+                    x-model="budget" 
+                    step="0.5"
+                    min="50"
+                    max="100"
+                    class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none"
+                >
+            </div>
+            
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Gameweek Horizon
+                </label>
+                <select 
+                    x-model="horizon" 
+                    class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none"
+                >
+                    <option value="1">1 Gameweek</option>
+                    <option value="3">3 Gameweeks</option>
+                    <option value="5">5 Gameweeks</option>
+                    <option value="10">10 Gameweeks</option>
+                </select>
+            </div>
+            
+            <button 
+                @click="generateSquad()"
+                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-8 rounded-lg transition transform hover:scale-105"
+            >
+                <i class="fas fa-magic mr-2"></i>Generate Squad
+            </button>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div x-show="squadData" class="space-y-6">
+        
+        <!-- Summary Cards -->
+        <div class="grid md:grid-cols-4 gap-6">
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-purple-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 font-medium">Total Cost</p>
+                        <p class="text-2xl font-bold text-gray-800">£<span x-text="squadData?.total_cost?.toFixed(1)"></span>m</p>
+                    </div>
+                    <i class="fas fa-pound-sign text-purple-500 text-3xl"></i>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-green-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 font-medium">Remaining Budget</p>
+                        <p class="text-2xl font-bold text-gray-800">£<span x-text="squadData?.remaining_budget?.toFixed(1)"></span>m</p>
+                    </div>
+                    <i class="fas fa-wallet text-green-500 text-3xl"></i>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-blue-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 font-medium">Expected Points</p>
+                        <p class="text-2xl font-bold text-gray-800" x-text="squadData?.total_expected_points?.toFixed(1)"></p>
+                    </div>
+                    <i class="fas fa-chart-line text-blue-500 text-3xl"></i>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-pink-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 font-medium">Status</p>
+                        <p class="text-lg font-bold text-gray-800" x-text="squadData?.status"></p>
+                    </div>
+                    <i class="fas fa-check-circle text-pink-500 text-3xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Squad by Position -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Your Optimal Squad</h2>
+            
+            <!-- Goalkeepers -->
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-gray-700 mb-3 flex items-center">
+                    <span class="w-2 h-8 bg-yellow-500 mr-3 rounded"></span>
+                    Goalkeepers
+                </h3>
+                <div class="space-y-2">
+                    <template x-for="player in getPlayersByPosition(1)" :key="player.id">
+                        <div class="bg-gradient-to-r from-yellow-50 to-white rounded-lg p-4 flex items-center justify-between border border-yellow-200">
+                            <div class="flex items-center space-x-4">
+                                <span class="px-3 py-1 bg-yellow-500 text-white text-xs font-bold rounded">GK</span>
+                                <div>
+                                    <p class="font-bold text-gray-800" x-text="player.name"></p>
+                                    <p class="text-sm text-gray-600" x-text="player.team"></p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-bold text-gray-800">£<span x-text="player.cost.toFixed(1)"></span>m</p>
+                                <p class="text-sm text-green-600 font-semibold"><span x-text="player.expected_points.toFixed(1)"></span> pts</p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Defenders -->
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-gray-700 mb-3 flex items-center">
+                    <span class="w-2 h-8 bg-blue-500 mr-3 rounded"></span>
+                    Defenders
+                </h3>
+                <div class="space-y-2">
+                    <template x-for="player in getPlayersByPosition(2)" :key="player.id">
+                        <div class="bg-gradient-to-r from-blue-50 to-white rounded-lg p-4 flex items-center justify-between border border-blue-200">
+                            <div class="flex items-center space-x-4">
+                                <span class="px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded">DEF</span>
+                                <div>
+                                    <p class="font-bold text-gray-800" x-text="player.name"></p>
+                                    <p class="text-sm text-gray-600" x-text="player.team"></p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-bold text-gray-800">£<span x-text="player.cost.toFixed(1)"></span>m</p>
+                                <p class="text-sm text-green-600 font-semibold"><span x-text="player.expected_points.toFixed(1)"></span> pts</p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Midfielders -->
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-gray-700 mb-3 flex items-center">
+                    <span class="w-2 h-8 bg-green-500 mr-3 rounded"></span>
+                    Midfielders
+                </h3>
+                <div class="space-y-2">
+                    <template x-for="player in getPlayersByPosition(3)" :key="player.id">
+                        <div class="bg-gradient-to-r from-green-50 to-white rounded-lg p-4 flex items-center justify-between border border-green-200">
+                            <div class="flex items-center space-x-4">
+                                <span class="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded">MID</span>
+                                <div>
+                                    <p class="font-bold text-gray-800" x-text="player.name"></p>
+                                    <p class="text-sm text-gray-600" x-text="player.team"></p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-bold text-gray-800">£<span x-text="player.cost.toFixed(1)"></span>m</p>
+                                <p class="text-sm text-green-600 font-semibold"><span x-text="player.expected_points.toFixed(1)"></span> pts</p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Forwards -->
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-gray-700 mb-3 flex items-center">
+                    <span class="w-2 h-8 bg-red-500 mr-3 rounded"></span>
+                    Forwards
+                </h3>
+                <div class="space-y-2">
+                    <template x-for="player in getPlayersByPosition(4)" :key="player.id">
+                        <div class="bg-gradient-to-r from-red-50 to-white rounded-lg p-4 flex items-center justify-between border border-red-200">
+                            <div class="flex items-center space-x-4">
+                                <span class="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded">FWD</span>
+                                <div>
+                                    <p class="font-bold text-gray-800" x-text="player.name"></p>
+                                    <p class="text-sm text-gray-600" x-text="player.team"></p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-bold text-gray-800">£<span x-text="player.cost.toFixed(1)"></span>m</p>
+                                <p class="text-sm text-green-600 font-semibold"><span x-text="player.expected_points.toFixed(1)"></span> pts</p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Empty State -->
+    <div x-show="!squadData" class="bg-white rounded-lg shadow-lg p-12 text-center">
+        <i class="fas fa-users text-gray-300 text-6xl mb-4"></i>
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">No Squad Generated Yet</h3>
+        <p class="text-gray-600">Set your preferences and click "Generate Squad" to get started</p>
+    </div>
+</div>
+
+<script>
+    function optimalSquadData() {
+        return {
+            budget: 100.0,
+            horizon: 5,
+            squadData: null,
+            
+            async generateSquad() {
+                showLoading();
+                try {
+                    const response = await fetch('/api/optimal-squad', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            budget: this.budget * 10, // Convert to tenths
+                            horizon: parseInt(this.horizon)
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.error) {
+                        showError(data.error);
+                    } else {
+                        this.squadData = data;
+                        showSuccess('Optimal squad generated successfully!');
+                    }
+                } catch (error) {
+                    showError('Error generating squad: ' + error.message);
+                } finally {
+                    hideLoading();
+                }
+            },
+            
+            getPlayersByPosition(position) {
+                if (!this.squadData || !this.squadData.players) return [];
+                return this.squadData.players.filter(p => p.position === position);
+            }
+        }
+    }
+</script>
+{% endblock %}
+
