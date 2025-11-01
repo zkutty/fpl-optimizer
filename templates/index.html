@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Home - FPL Optimizer{% endblock %}
+
+{% block content %}
+<div class="gradient-bg py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-5xl font-extrabold text-white mb-6 animate-fade-in">
+            <i class="fas fa-trophy mr-4"></i>
+            FPL Team Optimizer
+        </h1>
+        <p class="text-xl text-purple-100 mb-8 max-w-3xl mx-auto">
+            Advanced analytics and AI-powered recommendations to dominate your Fantasy Premier League mini-leagues
+        </p>
+        
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Get Started</h2>
+            <p class="text-gray-600 mb-6">Enter your FPL Team ID to get personalized recommendations</p>
+            
+            <form onsubmit="goToDashboard(event)" class="space-y-4">
+                <div>
+                    <input 
+                        type="number" 
+                        id="teamIdInput" 
+                        placeholder="Enter your FPL Team ID (e.g., 123456)"
+                        class="w-full px-6 py-4 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none text-lg"
+                        required
+                    >
+                </div>
+                <button 
+                    type="submit"
+                    class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
+                >
+                    <i class="fas fa-search mr-2"></i>
+                    Analyze My Team
+                </button>
+            </form>
+            
+            <div class="mt-6 text-sm text-gray-500">
+                <p>Don't know your Team ID? 
+                    <a href="https://fantasy.premierleague.com/" target="_blank" class="text-purple-600 hover:text-purple-700 font-medium">
+                        Find it here <i class="fas fa-external-link-alt text-xs"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">
+        Powerful Features to Maximize Your Points
+    </h2>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Feature 1 -->
+        <div class="stat-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-purple-500">
+            <div class="text-purple-600 text-4xl mb-4">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Optimal Squad</h3>
+            <p class="text-gray-600">Build the best possible team within budget constraints using advanced optimization algorithms</p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="stat-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-blue-500">
+            <div class="text-blue-600 text-4xl mb-4">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Transfer Suggestions</h3>
+            <p class="text-gray-600">Smart transfer recommendations based on upcoming fixtures and player form</p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="stat-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-green-500">
+            <div class="text-green-600 text-4xl mb-4">
+                <i class="fas fa-user-crown"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Captain Selector</h3>
+            <p class="text-gray-600">Data-driven captain picks with differential options for mini-league dominance</p>
+        </div>
+        
+        <!-- Feature 4 -->
+        <div class="stat-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-pink-500">
+            <div class="text-pink-600 text-4xl mb-4">
+                <i class="fas fa-magic"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Chip Advisor</h3>
+            <p class="text-gray-600">Strategic chip usage recommendations for Wildcard, Bench Boost, Triple Captain & Free Hit</p>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="gradient-card rounded-2xl p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+            Explore Without Team ID
+        </h2>
+        <div class="grid md:grid-cols-2 gap-4">
+            <a href="/optimal-squad" class="bg-white hover:bg-gray-50 rounded-lg p-6 text-center transition transform hover:scale-105 shadow-md">
+                <i class="fas fa-users text-purple-600 text-3xl mb-3"></i>
+                <h3 class="font-bold text-gray-800 mb-2">Build Optimal Squad</h3>
+                <p class="text-sm text-gray-600">Create the best possible team from scratch</p>
+            </a>
+            <a href="/value-players" class="bg-white hover:bg-gray-50 rounded-lg p-6 text-center transition transform hover:scale-105 shadow-md">
+                <i class="fas fa-star text-yellow-500 text-3xl mb-3"></i>
+                <h3 class="font-bold text-gray-800 mb-2">Value Players</h3>
+                <p class="text-sm text-gray-600">Discover the best points-per-million players</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function goToDashboard(event) {
+        event.preventDefault();
+        const teamId = document.getElementById('teamIdInput').value;
+        if (teamId) {
+            window.location.href = `/dashboard?team_id=${teamId}`;
+        }
+    }
+</script>
+{% endblock %}
+
