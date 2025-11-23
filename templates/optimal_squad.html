@@ -6,16 +6,16 @@
 <div x-data="optimalSquadData()" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     
     <!-- Header -->
-    <div class="bg-gruvbox-bg1 rounded-lg shadow-lg p-6 mb-8">
-        <h1 class="text-3xl font-bold text-gruvbox-fg0 mb-4">
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-4">
             <i class="fas fa-users mr-3"></i>Optimal Squad Builder
         </h1>
-        <p class="text-gruvbox-fg2 mb-6">Generate the best possible FPL squad using advanced optimization algorithms</p>
+        <p class="text-gray-600 mb-6">Generate the best possible FPL squad using advanced optimization algorithms</p>
         
         <!-- Controls -->
         <div class="flex flex-wrap items-end gap-4">
             <div class="flex-1 min-w-[200px]">
-                <label class="block text-sm font-medium text-gruvbox-fg1 mb-2">
+                <label class="block text-sm font-medium text-gray-800 mb-2">
                     Budget (£m)
                 </label>
                 <input 
@@ -24,17 +24,17 @@
                     step="0.5"
                     min="50"
                     max="100"
-                    class="w-full px-4 py-2 border-2 border-gruvbox-bg2 rounded-lg focus:border-gruvbox-purple-bright focus:outline-none"
+                    class="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-secondary focus:outline-none"
                 >
             </div>
             
             <div class="flex-1 min-w-[200px]">
-                <label class="block text-sm font-medium text-gruvbox-fg1 mb-2">
+                <label class="block text-sm font-medium text-gray-800 mb-2">
                     Gameweek Horizon
                 </label>
                 <select 
                     x-model="horizon" 
-                    class="w-full px-4 py-2 border-2 border-gruvbox-bg2 rounded-lg focus:border-gruvbox-purple-bright focus:outline-none"
+                    class="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-secondary focus:outline-none"
                 >
                     <option value="1">1 Gameweek</option>
                     <option value="3">3 Gameweeks</option>
@@ -45,7 +45,7 @@
             
             <button 
                 @click="generateSquad()"
-                class="bg-gruvbox-blue hover:bg-gruvbox-blue-bright text-gruvbox-fg0 font-bold py-2 px-8 rounded-lg transition transform hover:scale-105"
+                class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-8 rounded-lg transition transform hover:scale-105"
             >
                 <i class="fas fa-magic mr-2"></i>Generate Squad
             </button>
@@ -57,41 +57,41 @@
         
         <!-- Summary Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            <div class="bg-gruvbox-bg1 rounded-lg shadow-lg p-6 border-l-4 border-gruvbox-purple-bright">
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-secondary">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gruvbox-fg2 font-medium">Total Cost</p>
-                        <p class="text-2xl font-bold text-gruvbox-fg0">£<span x-text="squadData?.total_cost?.toFixed(1)"></span>m</p>
+                        <p class="text-sm text-gray-600 font-medium">Total Cost</p>
+                        <p class="text-2xl font-bold text-gray-900">£<span x-text="squadData?.total_cost?.toFixed(1)"></span>m</p>
                     </div>
-                    <i class="fas fa-pound-sign text-gruvbox-purple-bright text-3xl"></i>
+                    <i class="fas fa-pound-sign text-secondary text-3xl"></i>
                 </div>
             </div>
             
-            <div class="bg-gruvbox-bg1 rounded-lg shadow-lg p-6 border-l-4 border-green-500">
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-green-500">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gruvbox-fg2 font-medium">Remaining Budget</p>
-                        <p class="text-2xl font-bold text-gruvbox-fg0">£<span x-text="squadData?.remaining_budget?.toFixed(1)"></span>m</p>
+                        <p class="text-sm text-gray-600 font-medium">Remaining Budget</p>
+                        <p class="text-2xl font-bold text-gray-900">£<span x-text="squadData?.remaining_budget?.toFixed(1)"></span>m</p>
                     </div>
                     <i class="fas fa-wallet text-green-500 text-3xl"></i>
                 </div>
             </div>
             
-            <div class="bg-gruvbox-bg1 rounded-lg shadow-lg p-6 border-l-4 border-blue-500">
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-blue-500">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gruvbox-fg2 font-medium">Expected Points</p>
-                        <p class="text-2xl font-bold text-gruvbox-fg0" x-text="squadData?.total_expected_points?.toFixed(1)"></p>
+                        <p class="text-sm text-gray-600 font-medium">Expected Points</p>
+                        <p class="text-2xl font-bold text-gray-900" x-text="squadData?.total_expected_points?.toFixed(1)"></p>
                     </div>
                     <i class="fas fa-chart-line text-blue-500 text-3xl"></i>
                 </div>
             </div>
             
-            <div class="bg-gruvbox-bg1 rounded-lg shadow-lg p-6 border-l-4 border-pink-500">
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-pink-500">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gruvbox-fg2 font-medium">Status</p>
-                        <p class="text-lg font-bold text-gruvbox-fg0" x-text="squadData?.status"></p>
+                        <p class="text-sm text-gray-600 font-medium">Status</p>
+                        <p class="text-lg font-bold text-gray-900" x-text="squadData?.status"></p>
                     </div>
                     <i class="fas fa-check-circle text-pink-500 text-3xl"></i>
                 </div>
@@ -99,12 +99,12 @@
         </div>
 
         <!-- Squad by Position -->
-        <div class="bg-gruvbox-bg1 rounded-lg shadow-lg p-6">
-            <h2 class="text-2xl font-bold text-gruvbox-fg0 mb-6">Your Optimal Squad</h2>
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Your Optimal Squad</h2>
             
             <!-- Goalkeepers -->
             <div class="mb-6">
-                <h3 class="text-lg font-bold text-gruvbox-fg1 mb-3 flex items-center">
+                <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
                     <span class="w-2 h-8 bg-yellow-500 mr-3 rounded"></span>
                     Goalkeepers
                 </h3>
@@ -112,15 +112,15 @@
                     <template x-for="player in getPlayersByPosition(1)" :key="player.id">
                         <div class="bg-gradient-to-r from-yellow-50 to-white rounded-lg p-4 flex items-center justify-between border border-yellow-200">
                             <div class="flex items-center space-x-4">
-                                <span class="px-3 py-1 bg-yellow-500 text-gruvbox-fg0 text-xs font-bold rounded">GK</span>
+                                <span class="px-3 py-1 bg-yellow-500 text-gray-900 text-xs font-bold rounded">GK</span>
                                 <div>
-                                    <p class="font-bold text-gruvbox-fg0" x-text="player.name"></p>
-                                    <p class="text-sm text-gruvbox-fg2" x-text="player.team"></p>
+                                    <p class="font-bold text-gray-900" x-text="player.name"></p>
+                                    <p class="text-sm text-gray-600" x-text="player.team"></p>
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="text-lg font-bold text-gruvbox-fg0">£<span x-text="player.cost.toFixed(1)"></span>m</p>
-                                <p class="text-sm text-gruvbox-green-bright font-semibold"><span x-text="player.expected_points.toFixed(1)"></span> pts</p>
+                                <p class="text-lg font-bold text-gray-900">£<span x-text="player.cost.toFixed(1)"></span>m</p>
+                                <p class="text-sm text-success font-semibold"><span x-text="player.expected_points.toFixed(1)"></span> pts</p>
                             </div>
                         </div>
                     </template>
@@ -129,7 +129,7 @@
 
             <!-- Defenders -->
             <div class="mb-6">
-                <h3 class="text-lg font-bold text-gruvbox-fg1 mb-3 flex items-center">
+                <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
                     <span class="w-2 h-8 bg-blue-500 mr-3 rounded"></span>
                     Defenders
                 </h3>
@@ -137,15 +137,15 @@
                     <template x-for="player in getPlayersByPosition(2)" :key="player.id">
                         <div class="bg-gradient-to-r from-blue-50 to-white rounded-lg p-4 flex items-center justify-between border border-blue-200">
                             <div class="flex items-center space-x-4">
-                                <span class="px-3 py-1 bg-blue-500 text-gruvbox-fg0 text-xs font-bold rounded">DEF</span>
+                                <span class="px-3 py-1 bg-blue-500 text-gray-900 text-xs font-bold rounded">DEF</span>
                                 <div>
-                                    <p class="font-bold text-gruvbox-fg0" x-text="player.name"></p>
-                                    <p class="text-sm text-gruvbox-fg2" x-text="player.team"></p>
+                                    <p class="font-bold text-gray-900" x-text="player.name"></p>
+                                    <p class="text-sm text-gray-600" x-text="player.team"></p>
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="text-lg font-bold text-gruvbox-fg0">£<span x-text="player.cost.toFixed(1)"></span>m</p>
-                                <p class="text-sm text-gruvbox-green-bright font-semibold"><span x-text="player.expected_points.toFixed(1)"></span> pts</p>
+                                <p class="text-lg font-bold text-gray-900">£<span x-text="player.cost.toFixed(1)"></span>m</p>
+                                <p class="text-sm text-success font-semibold"><span x-text="player.expected_points.toFixed(1)"></span> pts</p>
                             </div>
                         </div>
                     </template>
@@ -154,7 +154,7 @@
 
             <!-- Midfielders -->
             <div class="mb-6">
-                <h3 class="text-lg font-bold text-gruvbox-fg1 mb-3 flex items-center">
+                <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
                     <span class="w-2 h-8 bg-green-500 mr-3 rounded"></span>
                     Midfielders
                 </h3>
@@ -162,15 +162,15 @@
                     <template x-for="player in getPlayersByPosition(3)" :key="player.id">
                         <div class="bg-gradient-to-r from-green-50 to-white rounded-lg p-4 flex items-center justify-between border border-green-200">
                             <div class="flex items-center space-x-4">
-                                <span class="px-3 py-1 bg-green-500 text-gruvbox-fg0 text-xs font-bold rounded">MID</span>
+                                <span class="px-3 py-1 bg-green-500 text-gray-900 text-xs font-bold rounded">MID</span>
                                 <div>
-                                    <p class="font-bold text-gruvbox-fg0" x-text="player.name"></p>
-                                    <p class="text-sm text-gruvbox-fg2" x-text="player.team"></p>
+                                    <p class="font-bold text-gray-900" x-text="player.name"></p>
+                                    <p class="text-sm text-gray-600" x-text="player.team"></p>
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="text-lg font-bold text-gruvbox-fg0">£<span x-text="player.cost.toFixed(1)"></span>m</p>
-                                <p class="text-sm text-gruvbox-green-bright font-semibold"><span x-text="player.expected_points.toFixed(1)"></span> pts</p>
+                                <p class="text-lg font-bold text-gray-900">£<span x-text="player.cost.toFixed(1)"></span>m</p>
+                                <p class="text-sm text-success font-semibold"><span x-text="player.expected_points.toFixed(1)"></span> pts</p>
                             </div>
                         </div>
                     </template>
@@ -179,7 +179,7 @@
 
             <!-- Forwards -->
             <div class="mb-6">
-                <h3 class="text-lg font-bold text-gruvbox-fg1 mb-3 flex items-center">
+                <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
                     <span class="w-2 h-8 bg-red-500 mr-3 rounded"></span>
                     Forwards
                 </h3>
@@ -187,15 +187,15 @@
                     <template x-for="player in getPlayersByPosition(4)" :key="player.id">
                         <div class="bg-gradient-to-r from-red-50 to-white rounded-lg p-4 flex items-center justify-between border border-red-200">
                             <div class="flex items-center space-x-4">
-                                <span class="px-3 py-1 bg-red-500 text-gruvbox-fg0 text-xs font-bold rounded">FWD</span>
+                                <span class="px-3 py-1 bg-red-500 text-gray-900 text-xs font-bold rounded">FWD</span>
                                 <div>
-                                    <p class="font-bold text-gruvbox-fg0" x-text="player.name"></p>
-                                    <p class="text-sm text-gruvbox-fg2" x-text="player.team"></p>
+                                    <p class="font-bold text-gray-900" x-text="player.name"></p>
+                                    <p class="text-sm text-gray-600" x-text="player.team"></p>
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="text-lg font-bold text-gruvbox-fg0">£<span x-text="player.cost.toFixed(1)"></span>m</p>
-                                <p class="text-sm text-gruvbox-green-bright font-semibold"><span x-text="player.expected_points.toFixed(1)"></span> pts</p>
+                                <p class="text-lg font-bold text-gray-900">£<span x-text="player.cost.toFixed(1)"></span>m</p>
+                                <p class="text-sm text-success font-semibold"><span x-text="player.expected_points.toFixed(1)"></span> pts</p>
                             </div>
                         </div>
                     </template>
@@ -205,10 +205,10 @@
     </div>
     
     <!-- Empty State -->
-    <div x-show="!squadData" class="bg-gruvbox-bg1 rounded-lg shadow-lg p-12 text-center">
+    <div x-show="!squadData" class="bg-white rounded-lg shadow-lg p-12 text-center">
         <i class="fas fa-users text-gruvbox-fg4 text-6xl mb-4"></i>
-        <h3 class="text-xl font-semibold text-gruvbox-fg1 mb-2">No Squad Generated Yet</h3>
-        <p class="text-gruvbox-fg2">Set your preferences and click "Generate Squad" to get started</p>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">No Squad Generated Yet</h3>
+        <p class="text-gray-600">Set your preferences and click "Generate Squad" to get started</p>
     </div>
 </div>
 
