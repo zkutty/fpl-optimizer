@@ -5,51 +5,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}FPL Optimizer{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gruvbox-bg0': '#282828',
+                        'gruvbox-bg1': '#3c3836',
+                        'gruvbox-bg2': '#504945',
+                        'gruvbox-bg3': '#665c54',
+                        'gruvbox-fg0': '#fbf1c7',
+                        'gruvbox-fg1': '#ebdbb2',
+                        'gruvbox-fg2': '#d5c4a1',
+                        'gruvbox-fg3': '#bdae93',
+                        'gruvbox-fg4': '#a89984',
+                        'gruvbox-red': '#cc241d',
+                        'gruvbox-red-bright': '#fb4934',
+                        'gruvbox-green': '#98971a',
+                        'gruvbox-green-bright': '#b8bb26',
+                        'gruvbox-yellow': '#d79921',
+                        'gruvbox-yellow-bright': '#fabd2f',
+                        'gruvbox-blue': '#458588',
+                        'gruvbox-blue-bright': '#83a598',
+                        'gruvbox-purple': '#b16286',
+                        'gruvbox-purple-bright': '#d3869b',
+                        'gruvbox-aqua': '#689d6a',
+                        'gruvbox-aqua-bright': '#8ec07c',
+                        'gruvbox-orange': '#d65d0e',
+                        'gruvbox-orange-bright': '#fe8019',
+                    }
+                }
+            }
+        }
+    </script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #282828;
+            color: #ebdbb2;
         }
         .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #458588 0%, #b16286 100%);
         }
         .gradient-card {
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            background: linear-gradient(135deg, #45858815 0%, #b1628615 100%);
         }
         .stat-card {
             transition: transform 0.2s, box-shadow 0.2s;
         }
         .stat-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+        /* Mobile menu animation */
+        .mobile-menu-enter {
+            animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
     {% block extra_head %}{% endblock %}
 </head>
-<body class="h-full bg-gray-50">
+<body class="h-full bg-gruvbox-bg0 text-gruvbox-fg1">
     <!-- Navigation -->
-    <nav class="gradient-bg shadow-lg">
+    <nav class="gradient-bg shadow-lg" x-data="{ mobileMenuOpen: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <a href="/" class="flex items-center space-x-3">
-                        <i class="fas fa-futbol text-white text-2xl"></i>
-                        <span class="text-white text-xl font-bold">FPL Optimizer</span>
+                        <i class="fas fa-futbol text-gruvbox-fg0 text-2xl"></i>
+                        <span class="text-gruvbox-fg0 text-xl font-bold">FPL Optimizer</span>
                     </a>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <a href="/" class="text-white hover:text-purple-200 px-3 py-2 rounded-md text-sm font-medium transition">
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="/" class="text-gruvbox-fg0 hover:text-gruvbox-fg2 px-3 py-2 rounded-md text-sm font-medium transition">
                         <i class="fas fa-home mr-2"></i>Home
                     </a>
-                    <a href="/dashboard" class="text-white hover:text-purple-200 px-3 py-2 rounded-md text-sm font-medium transition">
+                    <a href="/dashboard" class="text-gruvbox-fg0 hover:text-gruvbox-fg2 px-3 py-2 rounded-md text-sm font-medium transition">
                         <i class="fas fa-chart-line mr-2"></i>Dashboard
                     </a>
-                    <a href="/optimal-squad" class="text-white hover:text-purple-200 px-3 py-2 rounded-md text-sm font-medium transition">
+                    <a href="/optimal-squad" class="text-gruvbox-fg0 hover:text-gruvbox-fg2 px-3 py-2 rounded-md text-sm font-medium transition">
                         <i class="fas fa-users mr-2"></i>Optimal Squad
                     </a>
-                    <a href="/value-players" class="text-white hover:text-purple-200 px-3 py-2 rounded-md text-sm font-medium transition">
+                    <a href="/value-players" class="text-gruvbox-fg0 hover:text-gruvbox-fg2 px-3 py-2 rounded-md text-sm font-medium transition">
+                        <i class="fas fa-star mr-2"></i>Value Players
+                    </a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-gruvbox-fg0 hover:text-gruvbox-fg2 p-2 rounded-md transition">
+                        <i class="fas fa-bars text-xl" x-show="!mobileMenuOpen"></i>
+                        <i class="fas fa-times text-xl" x-show="mobileMenuOpen"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Navigation Menu -->
+            <div x-show="mobileMenuOpen" 
+                 x-transition:enter="mobile-menu-enter"
+                 class="md:hidden pb-4 border-t border-gruvbox-bg1">
+                <div class="flex flex-col space-y-2 pt-4">
+                    <a href="/" @click="mobileMenuOpen = false" class="text-gruvbox-fg0 hover:text-gruvbox-fg2 hover:bg-gruvbox-bg1 px-3 py-2 rounded-md text-sm font-medium transition">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a href="/dashboard" @click="mobileMenuOpen = false" class="text-gruvbox-fg0 hover:text-gruvbox-fg2 hover:bg-gruvbox-bg1 px-3 py-2 rounded-md text-sm font-medium transition">
+                        <i class="fas fa-chart-line mr-2"></i>Dashboard
+                    </a>
+                    <a href="/optimal-squad" @click="mobileMenuOpen = false" class="text-gruvbox-fg0 hover:text-gruvbox-fg2 hover:bg-gruvbox-bg1 px-3 py-2 rounded-md text-sm font-medium transition">
+                        <i class="fas fa-users mr-2"></i>Optimal Squad
+                    </a>
+                    <a href="/value-players" @click="mobileMenuOpen = false" class="text-gruvbox-fg0 hover:text-gruvbox-fg2 hover:bg-gruvbox-bg1 px-3 py-2 rounded-md text-sm font-medium transition">
                         <i class="fas fa-star mr-2"></i>Value Players
                     </a>
                 </div>
@@ -63,14 +139,14 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white mt-12">
+    <footer class="bg-gruvbox-bg1 text-gruvbox-fg2 mt-12">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <p class="text-sm text-gray-400">
+                <p class="text-sm text-gruvbox-fg3">
                     <i class="fas fa-futbol mr-2"></i>
                     FPL Optimizer - Your Fantasy Premier League Assistant
                 </p>
-                <p class="text-xs text-gray-500 mt-2">
+                <p class="text-xs text-gruvbox-fg4 mt-2">
                     Data from the official Fantasy Premier League API
                 </p>
             </div>
@@ -78,10 +154,10 @@
     </footer>
 
     <!-- Loading Overlay -->
-    <div id="loadingOverlay" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center">
-        <div class="bg-white rounded-lg p-8 flex flex-col items-center space-y-4">
-            <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-purple-600"></div>
-            <p class="text-gray-700 font-medium">Loading data...</p>
+    <div id="loadingOverlay" class="hidden fixed inset-0 bg-gruvbox-bg0 bg-opacity-90 z-50 flex items-center justify-center">
+        <div class="bg-gruvbox-bg1 rounded-lg p-8 flex flex-col items-center space-y-4 border-2 border-gruvbox-bg2">
+            <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-gruvbox-blue-bright"></div>
+            <p class="text-gruvbox-fg1 font-medium">Loading data...</p>
         </div>
     </div>
 
@@ -122,7 +198,7 @@
         // Show error message
         function showError(message) {
             const alertDiv = document.createElement('div');
-            alertDiv.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 animate-pulse';
+            alertDiv.className = 'fixed top-4 right-4 left-4 md:left-auto md:right-4 bg-gruvbox-red-bright text-gruvbox-fg0 px-4 md:px-6 py-3 md:py-4 rounded-lg shadow-lg z-50 animate-pulse border-2 border-gruvbox-red';
             alertDiv.innerHTML = `
                 <div class="flex items-center space-x-3">
                     <i class="fas fa-exclamation-circle text-xl"></i>
@@ -139,7 +215,7 @@
         // Show success message
         function showSuccess(message) {
             const alertDiv = document.createElement('div');
-            alertDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50';
+            alertDiv.className = 'fixed top-4 right-4 left-4 md:left-auto md:right-4 bg-gruvbox-green-bright text-gruvbox-bg0 px-4 md:px-6 py-3 md:py-4 rounded-lg shadow-lg z-50 border-2 border-gruvbox-green';
             alertDiv.innerHTML = `
                 <div class="flex items-center space-x-3">
                     <i class="fas fa-check-circle text-xl"></i>

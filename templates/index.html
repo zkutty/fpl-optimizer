@@ -3,19 +3,19 @@
 {% block title %}Home - FPL Optimizer{% endblock %}
 
 {% block content %}
-<div class="gradient-bg py-20">
+<div class="gradient-bg py-12 md:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-5xl font-extrabold text-white mb-6 animate-fade-in">
-            <i class="fas fa-trophy mr-4"></i>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-gruvbox-fg0 mb-4 md:mb-6 animate-fade-in">
+            <i class="fas fa-trophy mr-2 md:mr-4"></i>
             FPL Team Optimizer
         </h1>
-        <p class="text-xl text-purple-100 mb-8 max-w-3xl mx-auto">
+        <p class="text-base md:text-xl text-gruvbox-fg2 mb-6 md:mb-8 max-w-3xl mx-auto px-4">
             Advanced analytics and AI-powered recommendations to dominate your Fantasy Premier League mini-leagues
         </p>
         
-        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl mx-auto">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Get Started</h2>
-            <p class="text-gray-600 mb-6">Enter your FPL Team ID to get personalized recommendations</p>
+        <div class="bg-gruvbox-bg1 rounded-2xl shadow-2xl p-6 md:p-8 max-w-2xl mx-auto border-2 border-gruvbox-bg2">
+            <h2 class="text-xl md:text-2xl font-bold text-gruvbox-fg0 mb-4">Get Started</h2>
+            <p class="text-gruvbox-fg2 mb-6 text-sm md:text-base">Enter your FPL Team ID to get personalized recommendations</p>
             
             <form onsubmit="goToDashboard(event)" class="space-y-4">
                 <div>
@@ -24,22 +24,22 @@
                         id="teamIdInput" 
                         value="{{ default_team_id }}"
                         placeholder="Enter your FPL Team ID (e.g., 123456)"
-                        class="w-full px-6 py-4 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none text-lg"
+                        class="w-full px-4 md:px-6 py-3 md:py-4 border-2 border-gruvbox-bg2 bg-gruvbox-bg0 text-gruvbox-fg1 rounded-lg focus:border-gruvbox-blue-bright focus:outline-none text-base md:text-lg"
                         required
                     >
                 </div>
                 <button 
                     type="submit"
-                    class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
+                    class="w-full bg-gruvbox-blue hover:bg-gruvbox-blue-bright text-gruvbox-fg0 font-bold py-3 md:py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105 border-2 border-gruvbox-blue-bright"
                 >
                     <i class="fas fa-search mr-2"></i>
                     Analyze My Team
                 </button>
             </form>
             
-            <div class="mt-6 text-sm text-gray-500">
+            <div class="mt-6 text-xs md:text-sm text-gruvbox-fg3">
                 <p>Don't know your Team ID? 
-                    <a href="https://fantasy.premierleague.com/" target="_blank" class="text-purple-600 hover:text-purple-700 font-medium">
+                    <a href="https://fantasy.premierleague.com/" target="_blank" class="text-gruvbox-blue-bright hover:text-gruvbox-blue font-medium">
                         Find it here <i class="fas fa-external-link-alt text-xs"></i>
                     </a>
                 </p>
@@ -49,66 +49,66 @@
 </div>
 
 <!-- Features Section -->
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    <h2 class="text-2xl md:text-3xl font-bold text-center text-gruvbox-fg0 mb-8 md:mb-12">
         Powerful Features to Maximize Your Points
     </h2>
     
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         <!-- Feature 1 -->
-        <div class="stat-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-purple-500">
-            <div class="text-purple-600 text-4xl mb-4">
+        <div class="stat-card bg-gruvbox-bg1 rounded-xl shadow-lg p-5 md:p-6 border-t-4 border-gruvbox-purple-bright border-2 border-gruvbox-bg2">
+            <div class="text-gruvbox-purple-bright text-3xl md:text-4xl mb-3 md:mb-4">
                 <i class="fas fa-users"></i>
             </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">Optimal Squad</h3>
-            <p class="text-gray-600">Build the best possible team within budget constraints using advanced optimization algorithms</p>
+            <h3 class="text-lg md:text-xl font-bold text-gruvbox-fg0 mb-2">Optimal Squad</h3>
+            <p class="text-gruvbox-fg2 text-sm md:text-base">Build the best possible team within budget constraints using advanced optimization algorithms</p>
         </div>
         
         <!-- Feature 2 -->
-        <div class="stat-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-blue-500">
-            <div class="text-blue-600 text-4xl mb-4">
+        <div class="stat-card bg-gruvbox-bg1 rounded-xl shadow-lg p-5 md:p-6 border-t-4 border-gruvbox-blue-bright border-2 border-gruvbox-bg2">
+            <div class="text-gruvbox-blue-bright text-3xl md:text-4xl mb-3 md:mb-4">
                 <i class="fas fa-exchange-alt"></i>
             </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">Transfer Suggestions</h3>
-            <p class="text-gray-600">Smart transfer recommendations based on upcoming fixtures and player form</p>
+            <h3 class="text-lg md:text-xl font-bold text-gruvbox-fg0 mb-2">Transfer Suggestions</h3>
+            <p class="text-gruvbox-fg2 text-sm md:text-base">Smart transfer recommendations based on upcoming fixtures and player form</p>
         </div>
         
         <!-- Feature 3 -->
-        <div class="stat-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-green-500">
-            <div class="text-green-600 text-4xl mb-4">
+        <div class="stat-card bg-gruvbox-bg1 rounded-xl shadow-lg p-5 md:p-6 border-t-4 border-gruvbox-green-bright border-2 border-gruvbox-bg2">
+            <div class="text-gruvbox-green-bright text-3xl md:text-4xl mb-3 md:mb-4">
                 <i class="fas fa-user-crown"></i>
             </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">Captain Selector</h3>
-            <p class="text-gray-600">Data-driven captain picks with differential options for mini-league dominance</p>
+            <h3 class="text-lg md:text-xl font-bold text-gruvbox-fg0 mb-2">Captain Selector</h3>
+            <p class="text-gruvbox-fg2 text-sm md:text-base">Data-driven captain picks with differential options for mini-league dominance</p>
         </div>
         
         <!-- Feature 4 -->
-        <div class="stat-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-pink-500">
-            <div class="text-pink-600 text-4xl mb-4">
+        <div class="stat-card bg-gruvbox-bg1 rounded-xl shadow-lg p-5 md:p-6 border-t-4 border-gruvbox-yellow-bright border-2 border-gruvbox-bg2">
+            <div class="text-gruvbox-yellow-bright text-3xl md:text-4xl mb-3 md:mb-4">
                 <i class="fas fa-magic"></i>
             </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">Chip Advisor</h3>
-            <p class="text-gray-600">Strategic chip usage recommendations for Wildcard, Bench Boost, Triple Captain & Free Hit</p>
+            <h3 class="text-lg md:text-xl font-bold text-gruvbox-fg0 mb-2">Chip Advisor</h3>
+            <p class="text-gruvbox-fg2 text-sm md:text-base">Strategic chip usage recommendations for Wildcard, Bench Boost, Triple Captain & Free Hit</p>
         </div>
     </div>
 </div>
 
 <!-- Quick Actions -->
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="gradient-card rounded-2xl p-8">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <div class="gradient-card rounded-2xl p-6 md:p-8 border-2 border-gruvbox-bg2">
+        <h2 class="text-xl md:text-2xl font-bold text-gruvbox-fg0 mb-4 md:mb-6 text-center">
             Explore Without Team ID
         </h2>
-        <div class="grid md:grid-cols-2 gap-4">
-            <a href="/optimal-squad" class="bg-white hover:bg-gray-50 rounded-lg p-6 text-center transition transform hover:scale-105 shadow-md">
-                <i class="fas fa-users text-purple-600 text-3xl mb-3"></i>
-                <h3 class="font-bold text-gray-800 mb-2">Build Optimal Squad</h3>
-                <p class="text-sm text-gray-600">Create the best possible team from scratch</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a href="/optimal-squad" class="bg-gruvbox-bg1 hover:bg-gruvbox-bg2 rounded-lg p-5 md:p-6 text-center transition transform hover:scale-105 shadow-md border-2 border-gruvbox-bg2">
+                <i class="fas fa-users text-gruvbox-purple-bright text-2xl md:text-3xl mb-3"></i>
+                <h3 class="font-bold text-gruvbox-fg0 mb-2">Build Optimal Squad</h3>
+                <p class="text-sm text-gruvbox-fg2">Create the best possible team from scratch</p>
             </a>
-            <a href="/value-players" class="bg-white hover:bg-gray-50 rounded-lg p-6 text-center transition transform hover:scale-105 shadow-md">
-                <i class="fas fa-star text-yellow-500 text-3xl mb-3"></i>
-                <h3 class="font-bold text-gray-800 mb-2">Value Players</h3>
-                <p class="text-sm text-gray-600">Discover the best points-per-million players</p>
+            <a href="/value-players" class="bg-gruvbox-bg1 hover:bg-gruvbox-bg2 rounded-lg p-5 md:p-6 text-center transition transform hover:scale-105 shadow-md border-2 border-gruvbox-bg2">
+                <i class="fas fa-star text-gruvbox-yellow-bright text-2xl md:text-3xl mb-3"></i>
+                <h3 class="font-bold text-gruvbox-fg0 mb-2">Value Players</h3>
+                <p class="text-sm text-gruvbox-fg2">Discover the best points-per-million players</p>
             </a>
         </div>
     </div>

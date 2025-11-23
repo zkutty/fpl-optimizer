@@ -6,46 +6,46 @@
 <div x-data="valuePlayersData()" x-init="loadAllPlayers()" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     
     <!-- Header -->
-    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h1 class="text-3xl font-bold text-gray-800 mb-4">
-            <i class="fas fa-star mr-3 text-yellow-500"></i>Best Value Players
+    <div class="bg-gruvbox-bg1 rounded-lg shadow-lg p-6 mb-8">
+        <h1 class="text-3xl font-bold text-gruvbox-fg0 mb-4">
+            <i class="fas fa-star mr-3 text-gruvbox-yellow-bright"></i>Best Value Players
         </h1>
-        <p class="text-gray-600 mb-6">Discover the players offering the best points-per-million value</p>
+        <p class="text-gruvbox-fg2 mb-6">Discover the players offering the best points-per-million value</p>
         
         <!-- Position Filters -->
         <div class="flex flex-wrap gap-3">
             <button 
                 @click="selectedPosition = null; loadAllPlayers()"
-                :class="selectedPosition === null ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
-                class="px-6 py-2 rounded-lg font-semibold transition"
+                :class="selectedPosition === null ? 'bg-gruvbox-blue text-white' : 'bg-gruvbox-bg2 text-gruvbox-fg1 hover:bg-gruvbox-bg3'"
+                class="px-4 md:px-6 py-2 rounded-lg font-semibold transition text-sm md:text-base"
             >
                 <i class="fas fa-users mr-2"></i>All Positions
             </button>
             <button 
                 @click="selectedPosition = 1; loadPlayers(1)"
-                :class="selectedPosition === 1 ? 'bg-yellow-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
-                class="px-6 py-2 rounded-lg font-semibold transition"
+                :class="selectedPosition === 1 ? 'bg-yellow-500 text-white' : 'bg-gruvbox-bg2 text-gruvbox-fg1 hover:bg-gruvbox-bg3'"
+                class="px-4 md:px-6 py-2 rounded-lg font-semibold transition text-sm md:text-base"
             >
                 <i class="fas fa-hand-paper mr-2"></i>Goalkeepers
             </button>
             <button 
                 @click="selectedPosition = 2; loadPlayers(2)"
-                :class="selectedPosition === 2 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
-                class="px-6 py-2 rounded-lg font-semibold transition"
+                :class="selectedPosition === 2 ? 'bg-blue-500 text-white' : 'bg-gruvbox-bg2 text-gruvbox-fg1 hover:bg-gruvbox-bg3'"
+                class="px-4 md:px-6 py-2 rounded-lg font-semibold transition text-sm md:text-base"
             >
                 <i class="fas fa-shield-alt mr-2"></i>Defenders
             </button>
             <button 
                 @click="selectedPosition = 3; loadPlayers(3)"
-                :class="selectedPosition === 3 ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
-                class="px-6 py-2 rounded-lg font-semibold transition"
+                :class="selectedPosition === 3 ? 'bg-green-500 text-white' : 'bg-gruvbox-bg2 text-gruvbox-fg1 hover:bg-gruvbox-bg3'"
+                class="px-4 md:px-6 py-2 rounded-lg font-semibold transition text-sm md:text-base"
             >
                 <i class="fas fa-running mr-2"></i>Midfielders
             </button>
             <button 
                 @click="selectedPosition = 4; loadPlayers(4)"
-                :class="selectedPosition === 4 ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
-                class="px-6 py-2 rounded-lg font-semibold transition"
+                :class="selectedPosition === 4 ? 'bg-red-500 text-white' : 'bg-gruvbox-bg2 text-gruvbox-fg1 hover:bg-gruvbox-bg3'"
+                class="px-4 md:px-6 py-2 rounded-lg font-semibold transition text-sm md:text-base"
             >
                 <i class="fas fa-crosshairs mr-2"></i>Forwards
             </button>
@@ -53,15 +53,15 @@
     </div>
 
     <!-- Players Grid -->
-    <div x-show="players" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div x-show="players" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         <template x-for="(player, index) in players" :key="index">
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+            <div class="bg-gruvbox-bg1 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
                 <!-- Player Header -->
                 <div class="p-6" :class="getPositionGradient(player.element_type)">
                     <div class="flex items-start justify-between mb-3">
                         <div class="flex-1">
-                            <h3 class="text-xl font-bold text-gray-800 mb-1" x-text="player.web_name"></h3>
-                            <p class="text-sm text-gray-600" x-text="player.team_name"></p>
+                            <h3 class="text-xl font-bold text-gruvbox-fg0 mb-1" x-text="player.web_name"></h3>
+                            <p class="text-sm text-gruvbox-fg2" x-text="player.team_name"></p>
                         </div>
                         <span class="px-3 py-1 rounded-full text-xs font-bold text-white" 
                             :class="getPositionColor(player.element_type)"
@@ -71,7 +71,7 @@
                     
                     <!-- Rank Badge -->
                     <div class="inline-block">
-                        <span class="px-3 py-1 bg-white rounded-full text-sm font-bold" 
+                        <span class="px-3 py-1 bg-gruvbox-bg1 rounded-full text-sm font-bold" 
                             :class="getRankColor(index)">
                             #<span x-text="index + 1"></span> Value
                         </span>
@@ -79,35 +79,35 @@
                 </div>
                 
                 <!-- Player Stats -->
-                <div class="p-6 bg-white">
+                <div class="p-6 bg-gruvbox-bg1">
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div class="text-center">
-                            <p class="text-sm text-gray-600 mb-1">Price</p>
-                            <p class="text-2xl font-bold text-purple-600">£<span x-text="(player.now_cost / 10).toFixed(1)"></span>m</p>
+                            <p class="text-sm text-gruvbox-fg2 mb-1">Price</p>
+                            <p class="text-2xl font-bold text-gruvbox-purple-bright">£<span x-text="(player.now_cost / 10).toFixed(1)"></span>m</p>
                         </div>
                         <div class="text-center">
-                            <p class="text-sm text-gray-600 mb-1">Expected Pts</p>
-                            <p class="text-2xl font-bold text-green-600" x-text="player.expected_points.toFixed(1)"></p>
+                            <p class="text-sm text-gruvbox-fg2 mb-1">Expected Pts</p>
+                            <p class="text-2xl font-bold text-gruvbox-green-bright" x-text="player.expected_points.toFixed(1)"></p>
                         </div>
                     </div>
                     
                     <!-- Value Score -->
                     <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg p-4 border-2 border-yellow-300">
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-semibold text-gray-700">Value Score</span>
+                            <span class="text-sm font-semibold text-gruvbox-fg1">Value Score</span>
                             <div class="flex items-center">
-                                <i class="fas fa-star text-yellow-500 mr-2"></i>
-                                <span class="text-xl font-bold text-gray-800" x-text="player.value.toFixed(2)"></span>
+                                <i class="fas fa-star text-gruvbox-yellow-bright mr-2"></i>
+                                <span class="text-xl font-bold text-gruvbox-fg0" x-text="player.value.toFixed(2)"></span>
                             </div>
                         </div>
-                        <p class="text-xs text-gray-600 mt-1">Points per £1m</p>
+                        <p class="text-xs text-gruvbox-fg2 mt-1">Points per £1m</p>
                     </div>
                     
                     <!-- Additional Stats -->
-                    <div class="mt-4 pt-4 border-t border-gray-200">
+                    <div class="mt-4 pt-4 border-t border-gruvbox-bg2">
                         <div class="flex justify-between text-sm">
-                            <span class="text-gray-600">Form</span>
-                            <span class="font-bold text-gray-800" x-text="parseFloat(player.form || 0).toFixed(1)"></span>
+                            <span class="text-gruvbox-fg2">Form</span>
+                            <span class="font-bold text-gruvbox-fg0" x-text="parseFloat(player.form || 0).toFixed(1)"></span>
                         </div>
                     </div>
                 </div>
@@ -116,9 +116,9 @@
     </div>
     
     <!-- Loading State -->
-    <div x-show="!players" class="bg-white rounded-lg shadow-lg p-12 text-center">
-        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-purple-600 mx-auto mb-4"></div>
-        <p class="text-gray-600 font-medium">Loading value players...</p>
+    <div x-show="!players" class="bg-gruvbox-bg1 rounded-lg shadow-lg p-12 text-center">
+        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-gruvbox-blue-bright mx-auto mb-4"></div>
+        <p class="text-gruvbox-fg2 font-medium">Loading value players...</p>
     </div>
 </div>
 
@@ -184,7 +184,7 @@
                 if (index === 0) return 'text-yellow-600';
                 if (index === 1) return 'text-gray-500';
                 if (index === 2) return 'text-orange-600';
-                return 'text-purple-600';
+                return 'text-gruvbox-purple-bright';
             }
         }
     }
