@@ -224,6 +224,9 @@ def print_value_players(analyzer: PlayerAnalyzer):
 
 
 def main():
+    # Default team ID
+    DEFAULT_TEAM_ID = 7440345
+    
     parser = argparse.ArgumentParser(
         description='Fantasy Premier League Team Optimizer',
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -232,8 +235,9 @@ Examples:
   # Get optimal squad
   python main.py --optimal-squad
   
-  # Analyze your team (requires team ID from FPL website)
+  # Analyze your team (uses default team ID if not specified)
   python main.py --team-id 123456 --all
+  python main.py --all  # Uses default team ID
   
   # Get transfer suggestions
   python main.py --team-id 123456 --suggest-transfers
@@ -249,7 +253,7 @@ Examples:
         """
     )
     
-    parser.add_argument('--team-id', type=int, help='Your FPL team ID')
+    parser.add_argument('--team-id', type=int, default=DEFAULT_TEAM_ID, help=f'Your FPL team ID (default: {DEFAULT_TEAM_ID})')
     parser.add_argument('--optimal-squad', action='store_true', help='Generate optimal squad')
     parser.add_argument('--suggest-transfers', action='store_true', help='Suggest transfers')
     parser.add_argument('--suggest-lineup', action='store_true', help='Suggest starting XI')

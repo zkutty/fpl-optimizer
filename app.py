@@ -34,6 +34,9 @@ app.json = NumpyJSONProvider(app)
 app.secret_key = os.environ.get('SECRET_KEY', 'fpl-optimizer-secret-key-2024')
 CORS(app)
 
+# Default team ID
+DEFAULT_TEAM_ID = 7440345
+
 # Global instances (initialized on first request)
 api = None
 analyzer = None
@@ -77,14 +80,14 @@ def initialize_components():
 @app.route('/')
 def index():
     """Home page"""
-    return render_template('index.html')
+    return render_template('index.html', default_team_id=DEFAULT_TEAM_ID)
 
 
 @app.route('/dashboard')
 def dashboard():
     """Dashboard page with team ID input"""
-    team_id = request.args.get('team_id', '')
-    return render_template('dashboard.html', team_id=team_id)
+    team_id = request.args.get('team_id', '') or str(DEFAULT_TEAM_ID)
+    return render_template('dashboard.html', team_id=team_id, default_team_id=DEFAULT_TEAM_ID)
 
 
 @app.route('/optimal-squad')
